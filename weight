@@ -1,0 +1,9 @@
+import torch
+
+# 학습된 모델의 가중치를 로드합니다.
+model = torch.load('yolov8n.pt')
+
+# 모델의 가중치를 확인합니다.
+for name, param in model.named_parameters():
+    print(name, param.shape)
+
