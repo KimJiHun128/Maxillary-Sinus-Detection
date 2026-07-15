@@ -12,7 +12,7 @@ authors:
   - family-names: Kang
     given-names: Dongwoo
     orcid: "https://orcid.org/0000-0001-7151-703X"
-repository-code: "https://github.com/KimJiHun128/maxillary-sinus-yolov8"
+repository-code: "https://github.com/KimJiHun128/Maxillary-Sinus-Detection"
 license: AGPL-3.0
 preferred-citation:
   type: article
@@ -31,4 +31,3 @@ preferred-citation:
   year: 2024
   doi: "10.1093/dmfr/twae042"
   url: "https://doi.org/10.1093/dmfr/twae042"
-
