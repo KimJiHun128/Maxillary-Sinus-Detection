@@ -1,0 +1,140 @@
+# Automated Detection of Maxillary Sinus Opacifications from CT Images
+
+Research code accompanying the paper **“Automated detection of maxillary sinus
+opacifications compatible with sinusitis from CT images”**, published in
+*Dentomaxillofacial Radiology* (2024).
+
+> Kwon KW, Kim J, Kang D. Dentomaxillofac Radiol. 2024;53(8):549–557.  
+> https://doi.org/10.1093/dmfr/twae042
+
+## Overview
+
+This project uses YOLOv8 to localize the left and right maxillary sinuses in
+coronal CT images and classify each region as:
+
+- `normal`
+- `cyst`
+- `sinusitis`
+
+The published study used 1,080 coronal CT images containing 2,158 maxillary
+sinuses. Images were split into 648 training, 216 validation, and 216 test
+images. The primary YOLOv8n transfer-learning model achieved 97.1% overall
+precision, 93.8% recall, 96.6% mAP50, 85.3% mAP50–95, and a 95.4% F1-score on
+the test set. Please refer to the paper for the complete study design and
+results.
+
+## Data availability
+
+**The CT images, annotations, trained weights, and patient-level data are not
+included in this repository.** The source data are clinical data governed by
+institutional approval and patient privacy requirements, and cannot be made
+public through this repository.
+
+Consequently, this repository documents the training and evaluation pipeline,
+but the published results cannot be reproduced without an independently
+authorized dataset prepared in the same format. No synthetic or example
+medical images are presented as study data.
+
+## Repository layout
+
+```text
+configs/sinus_ct.yaml  Dataset configuration template
+src/train.py           YOLOv8 training entry point
+src/evaluate.py        Test-set evaluation entry point
+requirements.txt       Minimal Python dependency
+CITATION.cff           Citation metadata
+```
+
+## Environment
+
+The original experiments used Python/PyTorch with Ultralytics YOLOv8 on one
+NVIDIA RTX 3090 GPU (24 GB). This archive pins the Ultralytics release on which
+the retained research workspace was based.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Dataset format
+
+Prepare an independently authorized dataset in Ultralytics YOLO detection
+format:
+
+```text
+dataset/
+├── train/
+│   ├── images/
+│   └── labels/
+├── valid/
+│   ├── images/
+│   └── labels/
+└── test/
+    ├── images/
+    └── labels/
+```
+
+Each label row must follow `class x_center y_center width height`, with
+normalized coordinates. Edit `path` in `configs/sinus_ct.yaml` to point to the
+dataset root.
+
+## Training
+
+The primary experiment fine-tuned COCO-pretrained YOLOv8n weights for up to 300
+epochs, using 512 × 512 images, batch size 32, and early-stopping patience 50.
+
+```bash
+python src/train.py --data configs/sinus_ct.yaml --device 0
+```
+
+To run the comparison trained from scratch:
+
+```bash
+python src/train.py --data configs/sinus_ct.yaml --from-scratch --device 0
+```
+
+Ultralytics stores checkpoints and logs under `runs/`, which is ignored by Git.
+
+## Evaluation
+
+```bash
+python src/evaluate.py \
+  --weights runs/sinus_ct/yolov8n_transfer/weights/best.pt \
+  --data configs/sinus_ct.yaml \
+  --device 0
+```
+
+The evaluator uses the held-out `test` split and limits detections to two per
+image, reflecting the two maxillary sinuses expected in a typical CT slice.
+
+## Scope of this archive
+
+This is a cleaned research-code archive reconstructed from the retained
+development workspace and the published methods. It is not a clinical product,
+has not been packaged as a medical device, and must not be used for diagnosis
+or treatment decisions.
+
+## Citation
+
+If this work is useful in your research, please cite:
+
+```bibtex
+@article{kwon2024maxillary,
+  author  = {Kwon, Kyung Won and Kim, Jihun and Kang, Dongwoo},
+  title   = {Automated detection of maxillary sinus opacifications compatible with sinusitis from CT images},
+  journal = {Dentomaxillofacial Radiology},
+  volume  = {53},
+  number  = {8},
+  pages   = {549--557},
+  year    = {2024},
+  doi     = {10.1093/dmfr/twae042}
+}
+```
+
+## Acknowledgements
+
+The detection pipeline is built with
+[Ultralytics YOLO](https://github.com/ultralytics/ultralytics). See the paper
+for institutional, ethical, and author-contribution details.
+

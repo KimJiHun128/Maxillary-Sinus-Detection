@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this research code, please cite the associated article."
+title: "Automated detection of maxillary sinus opacifications from CT images"
+type: software
+authors:
+  - family-names: Kwon
+    given-names: Kyung Won
+    orcid: "https://orcid.org/0000-0002-0633-8374"
+  - family-names: Kim
+    given-names: Jihun
+    orcid: "https://orcid.org/0009-0004-2836-6546"
+  - family-names: Kang
+    given-names: Dongwoo
+    orcid: "https://orcid.org/0000-0001-7151-703X"
+repository-code: "https://github.com/KimJiHun128/maxillary-sinus-yolov8"
+license: AGPL-3.0
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Kwon
+      given-names: Kyung Won
+    - family-names: Kim
+      given-names: Jihun
+    - family-names: Kang
+      given-names: Dongwoo
+  title: "Automated detection of maxillary sinus opacifications compatible with sinusitis from CT images"
+  journal: "Dentomaxillofacial Radiology"
+  volume: 53
+  issue: 8
+  pages: 549-557
+  year: 2024
+  doi: "10.1093/dmfr/twae042"
+  url: "https://doi.org/10.1093/dmfr/twae042"
+

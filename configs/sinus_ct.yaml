@@ -1,0 +1,11 @@
+# Replace this with the path to an independently authorized dataset.
+path: ../dataset
+train: train/images
+val: valid/images
+test: test/images
+
+names:
+  0: normal
+  1: cyst
+  2: sinusitis
+

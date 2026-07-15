@@ -1,0 +1,3 @@
+# Version retained by the original research workspace.
+ultralytics==8.0.170
+
