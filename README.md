@@ -47,7 +47,6 @@ ultralytics/cfg/datasets/sinus_data.yaml   Original dataset configuration retain
 configs/sinus_ct.yaml                      Clean public dataset configuration template
 src/train.py                               Reconstructed command-line training entry point
 src/evaluate.py                            Reconstructed command-line test evaluator
-homework2.ipynb                            Unrelated MNIST/PCA/SVM coursework retained for archival completeness
 requirements.txt                           Original workspace dependencies
 CITATION.cff                               Article citation metadata
 ```
